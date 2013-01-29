@@ -1,29 +1,23 @@
-//Define routes for the application
+//this function should be called every time we load a partial view
+//complete view. This shall instantiate various components for
+//pages to work properly, including the UI components
+function initComponents() {
+    $(function () {
+        //initialize datepicker component
 
-angular.module('main-app', []).
-    config(['$routeProvider', function ($routeProvider) {
-    $routeProvider.
-//        when('/', {templateUrl:'/home/index'}).
-        when('/home/about', {templateUrl:'/home/about'}).
-        when('/home/contact', {templateUrl:'/home/contact'}).
+        $(".datetime-input").datetimepicker({
+            format:"dd MM yyyy h:ii",
+            autoclose:true,
+            todayBtn:false,
+            minuteStep:15
+        });
 
-        // -------------- Login Routes ----------------
-        when('/user/login', {templateUrl:'/user/login'}).
-        when('/user/post_login', {templateUrl:'/user/post_login'}).
-        when('/user/logout', {templateUrl:'/user/logout'}).
+        $(".date-input").datetimepicker({
+            format:"dd MM yyyy",
+            autoclose:true,
+            todayBtn:false,
+            minuteStep:15
+        });
 
-        //-------------- Demo Route -------------------
-        when('/demo/', {templateUrl:'/demo/'}).
-        when('/demo/add', {templateUrl:'/demo/add'}).
-        when('/demo/list', {templateUrl:'/demo/list'}).
-
-        //-------------- Report Route -------------------
-        when('/report/', {templateUrl:'/report/'}).
-        when('/report/enrolled', {templateUrl:'/report/enrolled'}).
-        when('/report/enroll_later', {templateUrl:'/report/enroll_later'}).
-        when('/report/absentees', {templateUrl:'/report/absentees'}).
-        when('/report/not_interested', {templateUrl:'/report/not_interested'}).
-
-        //--------------- Default URL ------------------
-        otherwise({redirectTo:'/'});
-}]);
+    });
+}
