@@ -45,6 +45,13 @@ class DemoControllerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(200, $response->status());
     }
 
+
+    public function testListDemos(){
+        $response = Controller::call('demo@list');
+        $this->assertNotNull($response);
+        $this->assertEquals(200, $response->status());
+    }
+
     public function testCreateFollowup()
     {
         $demoId = $this->getDemo()->id;

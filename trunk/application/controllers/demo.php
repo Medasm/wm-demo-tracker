@@ -10,12 +10,14 @@ class Demo_Controller extends Base_Controller
 {
     private $demoRepo;
     private $userRepo;
+    private $reportRepo;
 
     public function __construct()
     {
         parent::__construct();
         $this->demoRepo = new DemoRepository();
         $this->userRepo = new UserRepository();
+        $this->reportRepo = new ReportRepository();
 
         //proceed ahead only if authenticated
         $this->filter('before', 'auth');
@@ -24,6 +26,46 @@ class Demo_Controller extends Base_Controller
     public function action_index()
     {
 //todo: pending
+    }
+
+    /**
+     * Get view for viewing list of demo for authenticated user
+     * @return Laravel\View
+     */
+    public function action_list()
+    {
+        $demoDate = new DateTime();
+        $branches = $this->userRepo->getBranchesForUser(Auth::user()->id);
+        foreach ($branches as $branch) {
+            $branchIds[] = $branch->id;
+        }
+
+        $demos = $this->reportRepo->getDemosForDay($demoDate, $branchIds, true);
+        return View::make('demo.list')->
+            with('demoDate', $demoDate)->
+            with('branches', $branches)->
+            with('demos', $demos);
+    }
+
+    public function action_post_list()
+    {
+        $data = Input::json();
+
+        $demoDate = isset($data->demoDate) ? new DateTime($data->demoDate) : new DateTime();
+        $branchIds = array();
+
+        if (isset($data->branchIds))
+            $branchIds = $data->branchIds;
+        else {
+            $branches = $this->userRepo->getBranchesForUser(Auth::user()->id);
+            foreach ($branches as $branch) {
+                $branchIds[] = $branch->id;
+            }
+        }
+
+        $demos = $this->reportRepo->getDemosForDay($demoDate, $branchIds, true);
+
+        return Response::eloquent($demos);
     }
 
     public function action_add()

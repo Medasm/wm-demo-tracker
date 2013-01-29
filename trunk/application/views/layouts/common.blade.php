@@ -9,6 +9,7 @@
     <!-- Css -->
     <% HTML::style('css/bootstrap.min.css') %>
     <% HTML::style('css/bootstrap-responsive.min.css') %>
+    <% HTML::style('css/datetimepicker.css') %>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <% HTML::style('css/app.css') %>
 
@@ -18,6 +19,9 @@
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js"></script>
 
     <% HTML::script('js/bootstrap.min.js') %>
+    <% HTML::script('js/bootstrap-datetimepicker.js') %>
+    <% HTML::script('js/routes.js') %>
+    <% HTML::script('js/controllers.js') %>
     <% HTML::script('js/app.js') %>
 
 </head>
