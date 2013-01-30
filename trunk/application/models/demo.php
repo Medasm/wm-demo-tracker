@@ -10,7 +10,8 @@ class Demo extends Eloquent
 {
     public function demoStatus()
     {
-        return $this->has_many('DemoStatus');
+        //default order for demo status
+        return $this->has_many('DemoStatus')->order_by('created_at', 'desc');;
     }
 
     public function branch()

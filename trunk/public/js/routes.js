@@ -1,6 +1,34 @@
-//Define routes for the application
+//service for loader module
+angular.module('LoaderServices', [])
+    .config(function ($httpProvider) {
+        $httpProvider.responseInterceptors.push('appHttpInterceptor');
+        var spinnerFunction = function (data, headersGetter) {
+            // todo start the spinner here
+            $('#ajax-loader').show();
 
-angular.module('main-app', []).
+            return data;
+        };
+        $httpProvider.defaults.transformRequest.push(spinnerFunction);
+    })
+// register the interceptor as a service, intercepts ALL angular ajax http calls
+    .factory('appHttpInterceptor', function ($q, $window) {
+        return function (promise) {
+            return promise.then(function (response) {
+                // todo hide the spinner
+                $('#ajax-loader').hide();
+                return response;
+
+            }, function (response) {
+                // todo hide the spinner
+                $('#ajax-loader').hide();
+                return $q.reject(response);
+            });
+        };
+    })
+
+
+//Define routes for the application
+angular.module('main-app', ['LoaderServices']).
     config(['$routeProvider', function ($routeProvider) {
     $routeProvider.
         when('/', {templateUrl:'/demo/list', controller:Demo_List_Controller}).

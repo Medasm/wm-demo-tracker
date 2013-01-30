@@ -38,7 +38,7 @@ class User_Controller extends Base_Controller
             return Response::json(
                 array(
                     'status' => true,
-                    'url' => URL::to('/#')
+                    'url' => URL::to('/#/demo/list')
                 )
             );
         } else

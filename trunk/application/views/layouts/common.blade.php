@@ -20,6 +20,7 @@
 
     <% HTML::script('js/bootstrap.min.js') %>
     <% HTML::script('js/bootstrap-datetimepicker.js') %>
+    <% HTML::script('js/date-format.js') %>
     <% HTML::script('js/routes.js') %>
     <% HTML::script('js/controllers.js') %>
     <% HTML::script('js/app.js') %>
@@ -41,15 +42,15 @@
                 @if(Auth::check())
                 <ul class="nav">
                     <li class="active"><a href="/">Home</a></li>
-                    <li><a href="#demo/add">Add Demo</a></li>
-                    <li><a href="#demo/list">Demos List</a></li>
+                    <li><a href="#/demo/add">Add Demo</a></li>
+                    <li><a href="#/demo/list">Demos List</a></li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reports<b class="caret"></b></a>
+                        <a class="dropdown-toggle" data-toggle="dropdown">Reports<b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#report/enrolled">Enrolled</a></li>
-                            <li><a href="#report/enroll_later">Enroll Later</a></li>
-                            <li><a href="#report/absentees">Absentees</a></li>
-                            <li><a href="#report/not_interested">Not Interested</a></li>
+                            <li><a href="#/report/enrolled">Enrolled</a></li>
+                            <li><a href="#/report/enroll_later">Enroll Later</a></li>
+                            <li><a href="#/report/absentees">Absentees</a></li>
+                            <li><a href="#/report/not_interested">Not Interested</a></li>
                         </ul>
                     </li>
                     <li><a href="<% URL::to("/user/logout") %>">Logout</a></li>
@@ -63,6 +64,10 @@
 
 <div class="container" ng-view>
 
+</div>
+
+<div id="ajax-loader">
+    Loading ...
 </div>
 
 </body>
