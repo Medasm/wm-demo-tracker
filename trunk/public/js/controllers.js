@@ -46,12 +46,34 @@ function Demo_List_Controller($scope, $http) {
 
     //remarks for various status
     $scope.remarks = '';
-    $scope.check1 = true;
-    $scope.check2 = true;
-    $scope.check3 = true;
-    $scope.check4 = true;
-    $scope.check5 = true;
-    $scope.status = ['created', 'enrolled', 'follow_up', 'absent', 'not_interested']
+    $scope.getEnrolled = true;
+    $scope.getFollowup = true;
+    $scope.getAbsent = true;
+    $scope.getNotInterested = true;
+    $scope.getNew = true;
+
+
+    $scope.getStatusArray = function () {
+        var status = [];
+
+        if ($scope.getEnrolled)
+            status.push('enrolled');
+
+        if ($scope.getAbsent)
+            status.push('absent');
+
+        if ($scope.getFollowup)
+            status.push('follow_up');
+
+        if ($scope.getNotInterested)
+            status.push('not_interested');
+
+        if ($scope.getNew)
+            status.push('created');
+
+        return status;
+    }
+
     //action for getting demos data
     $scope.getDemos = function () {
         $scope.demoDate = $('#demoDate').val();
@@ -60,7 +82,7 @@ function Demo_List_Controller($scope, $http) {
             {
                 demoDate:$scope.demoDate,
                 branchIds:[$scope.branchId],
-                status:$scope.status
+                status:$scope.getStatusArray()
             }
         ).success(function ($data) {
                 $scope.demos = $data;
@@ -109,6 +131,7 @@ function Demo_List_Controller($scope, $http) {
         }
     }
 
+    //helper function for getting formatted date
     $scope.getFormattedDate = function ($date) {
         return dateFormat($date, 'dd mmm yyyy');
     }
@@ -209,94 +232,4 @@ function Demo_List_Controller($scope, $http) {
 
     //get initial data for default date and branch
     $scope.getDemos();
-
-    $scope.checkedStatus = function ($value) {
-        switch ($value) {
-            case 'enrolled':
-
-                if (!$scope.check1) {
-                    $scope.check1 = false;
-                    var index = $scope.status.indexOf('enrolled');
-                    $scope.status.splice(index, 1);
-                }
-                else {
-
-                    $scope.check1 = true;
-                    $scope.status.push("enrolled");
-                }
-
-                break;
-            case
-            'follow_up'
-            :
-            {
-                if (!$scope.check2) {
-                    $scope.check2 = false;
-                    var index = $scope.status.indexOf('follow_up');
-                    $scope.status.splice(index, 1);
-                }
-                else {
-
-                    $scope.check2 = true;
-                    $scope.status.push("follow_up");
-                }
-            }
-                break;
-            case
-            'created'
-            :
-            {
-                if (!$scope.check3) {
-                    $scope.check3 = false;
-                    var index = $scope.status.indexOf('created');
-                    $scope.status.splice(index, 1);
-                }
-                else {
-
-                    $scope.check3 = true;
-                    $scope.status.push("created");
-                }
-            }
-                break;
-            case
-            'absent'
-            :
-            {
-                if (!$scope.check4) {
-                    $scope.check4 = false;
-                    var index = $scope.status.indexOf('absent');
-                    $scope.status.splice(index, 1);
-                }
-                else {
-
-                    $scope.check4 = true;
-                    $scope.status.push("absent");
-                }
-            }
-                break;
-            case
-            'not_interested'
-            :
-            {
-                if (!$scope.check5) {
-                    $scope.check5 = false;
-                    var index = $scope.status.indexOf('not_interested');
-                    $scope.status.splice(index, 1);
-                }
-                else {
-
-                    $scope.check5 = true;
-                    $scope.status.push("not_interested");
-                }
-            }
-                break;
-            default:
-                alert();
-                break;
-        }
-
-        $scope.getDemos();
-    }
-
-
 }

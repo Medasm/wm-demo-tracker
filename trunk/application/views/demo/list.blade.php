@@ -17,15 +17,24 @@
             </label>
             @endforeach
         </p>
-        <p>
-            <?php $statuses =array('enrolled','follow_up',"created",'absent', 'not_interested'); ?>
-            <?php $i=0;?>
-            @foreach($statuses as $status)
 
+        <p>
+            <label>Demo Status</label>
             <label class="checkbox">
-                <input type="checkbox"  ng-model="check<?php echo ++$i?>" value="<% $status%>" ng-click=checkedStatus("<% $status%>")> <% $status %>
+                <input type="checkbox" ng-model="getNew"> New
             </label>
-            @endforeach
+            <label class="checkbox">
+                <input type="checkbox" ng-model="getAbsent"> Absent
+            </label>
+            <label class="checkbox">
+                <input type="checkbox" ng-model="getEnrolled"> Enrolled
+            </label>
+            <label class="checkbox">
+                <input type="checkbox" ng-model="getFollowup"> Enrolled Later
+            </label>
+            <label class="checkbox">
+                <input type="checkbox" ng-model="getNotInterested"> Not Interested
+            </label>
         </p>
         <button class="btn btn-block btn-info" ng-click="getDemos()">Filter</button>
 
