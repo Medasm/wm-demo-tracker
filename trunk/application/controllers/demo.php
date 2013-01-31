@@ -40,7 +40,11 @@ class Demo_Controller extends Base_Controller
             $branchIds[] = $branch->id;
         }
 
-        $demos = $this->reportRepo->getDemosForDay($demoDate, $branchIds, true);
+        $demos = $this->reportRepo->getDemosForDay(
+            $demoDate,
+            $branchIds,
+            array(DemoStatus::CREATED, DemoStatus::ENROLLED, DemoStatus::ABSENT, DemoStatus::NOT_INTERESTED, DemoStatus::FOLLOW_UP),
+            true);
         return View::make('demo.list')->
             with('demoDate', $demoDate)->
             with('branches', $branches)->
@@ -52,6 +56,7 @@ class Demo_Controller extends Base_Controller
         $data = Input::json();
 
         $demoDate = isset($data->demoDate) ? new DateTime($data->demoDate) : new DateTime();
+        $status = isset($data->status) ? $data->status : array();
         $branchIds = array();
 
         if (isset($data->branchIds))
@@ -63,7 +68,10 @@ class Demo_Controller extends Base_Controller
             }
         }
 
-        $demos = $this->reportRepo->getDemosForDay($demoDate, $branchIds, true);
+        $demos = $this->reportRepo->getDemosForDay($demoDate,
+            $branchIds,
+            $status,
+            true);
 
         return Response::eloquent($demos);
     }

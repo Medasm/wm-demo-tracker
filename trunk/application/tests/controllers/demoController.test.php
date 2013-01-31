@@ -17,11 +17,12 @@ class DemoControllerTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->markTestSkipped("Skipping Demo Controller");
+//        $this->markTestSkipped("Skipping Demo Controller");
     }
 
     public function testCanCreateDemo()
     {
+        $this->markTestSkipped("Skipping Demo Controller");
         $userId = $this->getUser()->id;
         $branchId = $this->getBranch()->id;
 
@@ -46,14 +47,37 @@ class DemoControllerTest extends PHPUnit_Framework_TestCase
     }
 
 
-    public function testListDemos(){
+    public function testListDemos()
+    {
+        $this->markTestSkipped("Skipping Demo Controller");
         $response = Controller::call('demo@list');
         $this->assertNotNull($response);
         $this->assertEquals(200, $response->status());
     }
 
+    public function testPostListDemo(){
+        $data = array(
+            'demoId' => 2,
+            'branchIds' =>array(1),
+            'status' =>array('enrolled'),
+            'demoDate' => '21 Jan 2013'
+        );
+
+        //forced logged in for a user to get pass through authentication
+        Auth::login(3);
+
+        Input::$json = (object)$data;
+
+        Request::setMethod('POST');
+        $response = Controller::call('demo@post_list');
+        $this->assertNotNull($response);
+        $this->assertEquals(200, $response->status());
+        var_dump($response->content);
+    }
+
     public function testCreateFollowup()
     {
+        $this->markTestSkipped("Skipping Demo Controller");
         $demoId = $this->getDemo()->id;
 
         $data = array(
@@ -72,6 +96,7 @@ class DemoControllerTest extends PHPUnit_Framework_TestCase
 
     public function testEnrollStudent()
     {
+        $this->markTestSkipped("Skipping Demo Controller");
         $demoId = $this->getDemo()->id;
 
         $data = array(
@@ -90,6 +115,7 @@ class DemoControllerTest extends PHPUnit_Framework_TestCase
 
     public function testMarkAbsent()
     {
+        $this->markTestSkipped("Skipping Demo Controller");
         $demoId = $this->getDemo()->id;
 
         $data = array(
@@ -106,6 +132,8 @@ class DemoControllerTest extends PHPUnit_Framework_TestCase
 
     public function testMarkNotInterested()
     {
+
+        $this->markTestSkipped("Skipping Demo Controller");
         $demoId = $this->getDemo()->id;
 
         $data = array(

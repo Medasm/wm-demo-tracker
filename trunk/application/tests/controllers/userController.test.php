@@ -19,6 +19,10 @@ class UserControllerTest extends PHPUnit_Framework_TestCase
         \Session::started() or \Session::load();
     }
 
+    public function setUp()
+    {
+        $this->markTestSkipped("Skipping User Controller");
+    }
 
     public function testCreateUser()
     {

@@ -24,7 +24,8 @@ class ReportControllerTest extends PHPUnit_Framework_TestCase
         //todo: add test data before running
         $data = array(
             'branchIds' => array(1, 2, 3),
-            'demoDate' => '2012-01-12'
+            'demoDate' => '2012-01-21',
+            ''
         );
 
         Input::$json = (object)$data;

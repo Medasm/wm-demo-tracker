@@ -17,6 +17,16 @@
             </label>
             @endforeach
         </p>
+        <p>
+            <?php $statuses =array('enrolled','follow_up',"created",'absent', 'not_interested'); ?>
+            <?php $i=0;?>
+            @foreach($statuses as $status)
+
+            <label class="checkbox">
+                <input type="checkbox"  ng-model="check<?php echo ++$i?>" value="<% $status%>" ng-click=checkedStatus("<% $status%>")> <% $status %>
+            </label>
+            @endforeach
+        </p>
         <button class="btn btn-block btn-info" ng-click="getDemos()">Filter</button>
 
     </div>
