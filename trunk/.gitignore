@@ -35,9 +35,3 @@ dwsync.xml
 intermediate
 publish
 .idea
-
-# ide helper file
-IDE_HELPER.php
-
-# ignore storage folder
-storage/*

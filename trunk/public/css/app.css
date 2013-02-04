@@ -2,8 +2,9 @@ body {
     padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
 }
 
-body, input, button, select, textarea {
+body, input, button, select, textarea, .btn, label {
     font-family: 'Open Sans', sans-serif;
+    font-size: 12px !important;
 }
 
 @media (max-width: 979px) {
@@ -15,7 +16,9 @@ body, input, button, select, textarea {
 #ajax-loader {
     text-align: center;
     padding: 50px 0px;
-    background: rgba(208, 208, 208, 0.8);
+    border-top: 10px solid #ccc;
+    border-bottom: 10px solid #ccc;
+    background: rgba(255, 255, 255, 0.95);
     font-size: 50px;
     font-weight: bold;
     color: #333;
@@ -23,3 +26,4 @@ body, input, button, select, textarea {
     top: 150px;
     width: 100%;
 }
+

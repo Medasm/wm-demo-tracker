@@ -16,29 +16,34 @@ class ReportRepository
         $toDate = new DateTime($dateValue);
         $toDate->add(new DateInterval('P1D'));
 
+        //todo: clean this mess
+
         if (empty($status))
             return array();
+
         $statusString = "(";
         foreach ($status as $st) {
             $statusString = $statusString . "'" . $st . "',";
         }
+
         $statusString = rtrim($statusString, ",") . ")";
-        $query = 'select * from ( SELECT demoStatus.demo_id,demoStatus.status,demoStatus.created_at  FROM demoStatus  JOIN demos ON demoStatus.demo_id=demos.id
-    order by demoStatus.created_at desc) derived_table group by demo_id having status in ' . $statusString;
+
+        $query = 'select * from (
+                    SELECT demoStatus.demo_id,demoStatus.status,demoStatus.created_at
+                    FROM demoStatus
+                    JOIN demos ON demoStatus.demo_id=demos.id
+                    order by demoStatus.created_at desc) derived_table group by demo_id having status in ' . $statusString;
 
         $results = DB::query($query);
-        if(empty($results))
+
+        if (empty($results))
             return array();
+
         $filteredDemoIds = array();
+
         foreach ($results as $result) {
             $filteredDemoIds[] = $result->demo_id;
         }
-//        $filteredDemoIds = DB::table('demos')
-//            ->join('demoStatus', 'demos.id', '=', 'demoStatus.demo_id')->order_by('demoStatus.created_at')->group_by('demoStatus.demo_id')->having_in('demoStatus.status', $status)
-//            ->get('demos.id');
-//        print_r($filteredDemoIds);
-//        exit;
-//        $filteredDemoIds = array(1);
 
         //todo: use loadbranch for loading branch along with demos
         return Demo::with(
@@ -50,14 +55,40 @@ class ReportRepository
             get();
     }
 
-    public function getEnrolledDemos($branchIds)
+    public function getFollowUps(DateTime $date, $branchIds)
     {
-        return Demo::with(array('branch', 'demoStatus'))->
-            where('demoDate', '>=', $fromDate)->
-            where('demoDate', '<', $toDate)->
+        $dateValue = date('Y', $date->getTimestamp()) . "-" . date('m', $date->getTimestamp()) . "-" . date('d', $date->getTimestamp()) . " 00:00:00";
+
+        $fromDate = new DateTime($dateValue);
+        $toDate = new DateTime($dateValue);
+        $toDate->add(new DateInterval('P1D'));
+
+        //todo: clean this mess
+
+        $query = "select * from (
+                    SELECT demoStatus.demo_id,demoStatus.status,demoStatus.created_at
+                    FROM demoStatus
+                    JOIN demos ON demoStatus.demo_id=demos.id
+                    order by demoStatus.created_at desc) derived_table group by demo_id having status = 'follow_up'";
+
+        $results = DB::query($query);
+
+        if (empty($results))
+            return array();
+
+        $filteredDemoIds = array();
+
+        foreach ($results as $result) {
+            $filteredDemoIds[] = $result->demo_id;
+        }
+
+        //todo: use load branch for loading branch along with demos
+        return Demo::with(
+            array('branch', 'demoStatus' => function ($query) use ($fromDate, $toDate) {
+                $query->where('followupDate', '>=', $fromDate)->where('followupDate', '<', $toDate);
+            }))->
+            where_in('id', $filteredDemoIds)->
             where_in('branch_id', $branchIds)->
             get();
     }
-
-
 }

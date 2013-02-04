@@ -49,27 +49,57 @@ class DemoControllerTest extends PHPUnit_Framework_TestCase
 
     public function testListDemos()
     {
+
         $this->markTestSkipped("Skipping Demo Controller");
         $response = Controller::call('demo@list');
         $this->assertNotNull($response);
         $this->assertEquals(200, $response->status());
     }
 
-    public function testPostListDemo(){
+    public function testPostListDemo()
+    {
+        $this->markTestSkipped("Skipping Demo Controller");
         $data = array(
             'demoId' => 2,
-            'branchIds' =>array(1),
-            'status' =>array('enrolled'),
-            'demoDate' => '21 Jan 2013'
+            'branchIds' => array(1),
+            'status' => array('created'),
+            'demoDate' => '16 Jan 2013'
         );
 
         //forced logged in for a user to get pass through authentication
-        Auth::login(3);
+        Auth::login(1);
 
         Input::$json = (object)$data;
 
         Request::setMethod('POST');
         $response = Controller::call('demo@post_list');
+        $this->assertNotNull($response);
+        $this->assertEquals(200, $response->status());
+        $this->assertEquals(count(json_decode($response->content)), 0);
+    }
+
+    public function testExportData()
+    {
+        $data = array(
+            'demoId' => 2,
+//            'branchIds' => "1",
+            'status' => array('created'),
+            'demoDate' => '16 Jan 2013'
+        );
+
+        //forced logged in for a user to get pass through authentication
+        Auth::login(1);
+
+        $request = \Laravel\Request::foundation()->request;
+
+        foreach ($request->keys() as $key) {
+            $request->remove($key);
+        }
+
+        \Laravel\Request::foundation()->request->add($data);
+
+        Request::setMethod('POST');
+        $response = Controller::call('demo@export_data', $data);
         $this->assertNotNull($response);
         $this->assertEquals(200, $response->status());
         var_dump($response->content);

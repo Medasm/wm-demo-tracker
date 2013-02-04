@@ -4,7 +4,8 @@
             <label>Demo Date</label>
 
         <div class="input-append date date-input" data-date-format="dd M yyyy">
-            <input size="16" type="text" id="demoDate" ng-model="demoDate" value="<% $demoDate->format('d F Y') %>" readonly>
+            <input size="16" type="text" id="demoDate" ng-model="demoDate" value="<% $demoDate->format('d F Y') %>"
+                   readonly>
             <span class="add-on"><i class="icon-remove"></i></span>
             <span class="add-on"><i class="icon-calendar"></i></span>
         </div>
@@ -18,24 +19,6 @@
             @endforeach
         </p>
 
-        <p>
-            <label>Demo Status</label>
-            <label class="checkbox">
-                <input type="checkbox" ng-model="getNew"> New
-            </label>
-            <label class="checkbox">
-                <input type="checkbox" ng-model="getAbsent"> Absent
-            </label>
-            <label class="checkbox">
-                <input type="checkbox" ng-model="getEnrolled"> Enrolled
-            </label>
-            <label class="checkbox">
-                <input type="checkbox" ng-model="getFollowup"> Enrolled Later
-            </label>
-            <label class="checkbox">
-                <input type="checkbox" ng-model="getNotInterested"> Not Interested
-            </label>
-        </p>
         <button class="btn btn-success" ng-click="getDemos()">&nbsp;&nbsp;&nbsp;Filter&nbsp;&nbsp;&nbsp;</button>
         <button class="btn btn-info pull-right" ng-click="exportData()">Export to Excel</button>
 
@@ -67,7 +50,7 @@
                 <td>{{ getStatus(demo) }}</td>
                 <td>
                     <div class="btn-group pull-right">
-                        <a ng-show="getStatus(demo) != 'Enrolled'" class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
                             Update Status
                             <span class="caret"></span>
                         </a>

@@ -11,8 +11,7 @@ function pageCtrl($scope, $http, $window) {
             }
         ).success(function (data) {
                 if (data.status == true) {
-//                    location.reload();
-                    location.href = data.url;
+                    window.location.href = data.url;
                 }
             });
     }

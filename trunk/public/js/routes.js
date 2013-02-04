@@ -44,6 +44,7 @@ angular.module('main-app', ['LoaderServices']).
         when('/demo/', {templateUrl:'/demo/list'}).
         when('/demo/add', {templateUrl:'/demo/add', controller:Demo_Add_Controller}).
         when('/demo/list', {templateUrl:'/demo/list', controller:Demo_List_Controller}).
+        when('/demo/follow_up', {templateUrl:'/demo/follow_up', controller:Demo_Follow_Up_Controller}).
 
         //-------------- Report Route -------------------
         when('/report/', {templateUrl:'/report/'}).
