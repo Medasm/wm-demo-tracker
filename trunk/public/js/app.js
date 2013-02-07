@@ -5,19 +5,11 @@ function initComponents() {
     $(function () {
         //initialize datepicker component
 
-        $(".datetime-input").datetimepicker({
-            format:"dd MM yyyy h:ii",
-            autoclose:true,
-            todayBtn:false,
-            minuteStep:15
-        });
-
-        $(".date-input").datetimepicker({
+        $(".datetime-input,.date-input").datepicker({
             format:"dd MM yyyy",
             autoclose:true,
-            todayBtn:false,
-            minuteStep:15
+            todayBtn:true,
+            todayHighlight:true
         });
-
     });
 }
