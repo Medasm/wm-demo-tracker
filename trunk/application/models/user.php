@@ -5,7 +5,7 @@ class User extends Eloquent
 
     public function branches()
     {
-        return $this->has_many_and_belongs_to('Branch');
+        return $this->has_many_and_belongs_to('Branch')->order_by('name');
     }
 
     public function roles()
