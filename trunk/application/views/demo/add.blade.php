@@ -26,8 +26,7 @@
         <label for="demoDate">Demo Date</label>
 
         <div class="input-append date datetime-input" data-date-format="dd M yyyy hh:ii">
-            <input size="16" type="text" id="demoDate" ng-model="demoDate" value="" readonly>
-            <span class="add-on"><i class="icon-remove"></i></span>
+            <input size="16" type="text" class="span3" id="demoDate" ng-model="demoDate" value="" readonly>
             <span class="add-on"><i class="icon-calendar"></i></span>
         </div>
 
@@ -40,13 +39,15 @@
             @endforeach
         </select>
     </div>
-    <div class="span4">
+    <div class="span2">
         <label for="faculty">Faculty</label>
-        <select ng-model="faculty" id="faculty" class="span4">
-            @foreach ($faculty as $teacher)
-            <option value="<% $teacher %>"><% $teacher %></option>
-            @endforeach
-        </select>
+        <input type="text" ng-model="faculty" ng-required="true" id="faculty" placeholder="Enter full name"
+               class="span2">
+    </div>
+    <div class="span2">
+        <label for="counsellor">Counsellor</label>
+        <input type="text" ng-model="counsellor" ng-required="true" id="counsellor" placeholder="Enter full name"
+               class="span2">
     </div>
 </div>
 <div class="row">

@@ -28,11 +28,11 @@ class ReportRepository
 
         $statusString = rtrim($statusString, ",") . ")";
 
-        $query = 'select * from (
-                    SELECT demoStatus.demo_id,demoStatus.status,demoStatus.created_at
-                    FROM demoStatus
-                    JOIN demos ON demoStatus.demo_id=demos.id
-                    order by demoStatus.created_at desc) derived_table group by demo_id having status in ' . $statusString;
+        $query = 'select demo_id from (
+                    SELECT "demoStatus".demo_id,"demoStatus".status,"demoStatus".created_at
+                    FROM "demoStatus"
+                    JOIN "demos" ON "demoStatus".demo_id=demos.id
+                    order by "demoStatus".created_at desc) derived_table group by demo_id, status having status in ' . $statusString;
 
         $results = DB::query($query);
 
@@ -65,11 +65,11 @@ class ReportRepository
 
         //todo: clean this mess
 
-        $query = "select * from (
-                    SELECT demoStatus.demo_id,demoStatus.status,demoStatus.created_at
-                    FROM demoStatus
-                    JOIN demos ON demoStatus.demo_id=demos.id
-                    order by demoStatus.created_at desc) derived_table group by demo_id having status = 'follow_up'";
+        $query = 'select demo_id from (
+                    SELECT "demoStatus".demo_id,"demoStatus".status,"demoStatus".created_at
+                    FROM "demoStatus"
+                    JOIN demos ON "demoStatus".demo_id=demos.id
+                    order by "demoStatus".created_at desc) derived_table group by demo_id, status having status = \'follow_up\'';
 
         $results = DB::query($query);
 

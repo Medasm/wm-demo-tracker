@@ -1,11 +1,11 @@
-<div class="row" xmlns="http://www.w3.org/1999/html">
+<div class="row">
     <div class="span3">
         <p>
             <label>Demo Date</label>
 
         <div class="input-append date date-input" data-date-format="dd M yyyy">
-            <input size="16" type="text" id="demoDate" ng-model="demoDate" value="<% $demoDate->format('d F Y') %>" readonly>
-            <span class="add-on"><i class="icon-remove"></i></span>
+            <input class="span2" type="text" id="demoDate" ng-model="demoDate" value="<% $demoDate->format('d F Y') %>"
+                   readonly>
             <span class="add-on"><i class="icon-calendar"></i></span>
         </div>
         </p
@@ -27,7 +27,7 @@
                 <input type="checkbox" ng-model="getAbsent"> Absent
             </label>
             <label class="checkbox">
-                <input type="checkbox" ng-model="getEnrolled"> Enrolled
+                <input type="checkbox" ng-model="getEnrolled"> Enrolled [Paid Only]
             </label>
             <label class="checkbox">
                 <input type="checkbox" ng-model="getFollowup"> Enrolled Later
@@ -50,12 +50,13 @@
                 <th>Demo Date</th>
                 <th>Course</th>
                 <th>Faculty</th>
+                <th>Counsellor</th>
                 <th>Branch</th>
                 <th>Status</th>
                 <th>&nbsp;</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody ng-show="demos.length>0">
 
             <tr ng-repeat="demo in demos" ng-class="getStatusCss(demo)">
                 <td>{{ demo.name }}</td>
@@ -63,16 +64,18 @@
                 <td>{{ getFormattedDate(demo.demodate) }}</td>
                 <td>{{ demo.program}}</td>
                 <td>{{ demo.faculty}}</td>
+                <td>{{ demo.counsellor}}</td>
                 <td>{{ demo.branch.name}}</td>
                 <td>{{ getStatus(demo) }}</td>
                 <td>
                     <div class="btn-group pull-right">
-                        <a ng-show="getStatus(demo) != 'Enrolled'" class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                        <a ng-show="getStatus(demo) != 'Enrolled'" class="btn dropdown-toggle" data-toggle="dropdown"
+                           href="#">
                             Update Status
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a ng-click="showEnrollModal(demo)">Enrolled</a></li>
+                            <li><a ng-click="showEnrollModal(demo)">Enrolled [Paid Only]</a></li>
                             <li><a ng-click="showFollowupModal(demo)">Enroll Later</a></li>
                             <li><a ng-click="setAbsent(demo)">Absent</a></li>
                             <li class="divider"></li>
@@ -82,6 +85,18 @@
                 </td>
             </tr>
 
+            </tbody>
+            <tbody ng-show="demos.length==0">
+            <tr>
+                <td colspan="9" style="text-align: center">
+                    <br/>
+                    <strong>
+                        No Data found for given branch and date. Try selecting different date or branch.
+                    </strong>
+                    <br/>
+                    <br/>
+                </td>
+            </tr>
             </tbody>
 
         </table>

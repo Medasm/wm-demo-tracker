@@ -15,12 +15,15 @@ class Constants
     {
 
         return array(
-            "GMAT - VERBAL",
-            "GMAT - QUANT",
-            "GMAT - REASONING",
-            "GRE - VERBAL",
-            "GRE - QUANT",
-            "GRE - REASONING",
+            "GMAT-Verbal",
+            "GMAT-Math",
+            "GRE-Verbal,",
+            "GRE-Math",
+            "SAT Verba,l",
+            "SAT-Math",
+            "IELTS",
+            "TOEFL",
+            "Speak Easy",
         );
     }
 

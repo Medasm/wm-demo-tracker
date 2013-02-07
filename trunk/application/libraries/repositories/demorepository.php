@@ -9,7 +9,8 @@ class DemoRepository
                                $mobile,
                                DateTime $demoDate,
                                $course,
-                               $faculty)
+                               $faculty,
+                               $counsellor)
     {
 
         $branch = Branch::find($branchId);
@@ -24,9 +25,10 @@ class DemoRepository
         $demo->mobile = $mobile;
         $demo->program = $course;
         $demo->faculty = $faculty;
+        $demo->counsellor = $counsellor;
         $demo->demoDate = $demoDate;
-        $demo->Branch_id = $branchId;
-        $demo->User_id = $userId;
+        $demo->branch_id = $branchId;
+        $demo->user_id = $userId;
 
         $demoStatus = new DemoStatus();
         $demoStatus->status = DemoStatus::CREATED;

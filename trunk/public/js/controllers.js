@@ -5,6 +5,7 @@ function Demo_Add_Controller($scope, $http) {
     $scope.course = '';
     $scope.faculty = '';
     $scope.branchId = '';
+    $scope.counsellor = '';
     $scope.demoDate;
 
     $scope.addDemo = function () {
@@ -19,7 +20,8 @@ function Demo_Add_Controller($scope, $http) {
                 course:$scope.course,
                 faculty:$scope.faculty,
                 branchId:$scope.branchId,
-                demoDate:$scope.demoDate
+                demoDate:$scope.demoDate,
+                counsellor:$scope.counsellor
             }
         ).success(function (data) {
                 //if demo is created, redirect to demo list
@@ -30,12 +32,11 @@ function Demo_Add_Controller($scope, $http) {
     }
 }
 
-
 //for route /demo/list
 function Demo_List_Controller($scope, $http) {
 
     $scope.demoDate = dateFormat(new Date(), 'dd mmmm yyyy');
-    $scope.branchId = 1;
+    $scope.branchId = 0;
     $scope.demos = [];
     $scope.currentDemo = null;
 
@@ -241,8 +242,12 @@ function Demo_List_Controller($scope, $http) {
                 status:$scope.getStatusArray()
             }
         ).success(function ($data) {
-                var downloadFrame = '<iframe height="0" width="0" style="display:none" src="' + $data + '"></iframe>';
-                $(downloadFrame).appendTo('body');
+                if ($data != false) {
+                    var downloadFrame = '<iframe height="0" width="0" style="display:none" src="' + $data + '"></iframe>';
+                    $(downloadFrame).appendTo('body');
+                } else {
+                    alert('No Data to Export!')
+                }
             }).error(function ($data) {
                 //todo: work for error
             });
@@ -257,7 +262,7 @@ function Demo_List_Controller($scope, $http) {
 function Demo_Follow_Up_Controller($scope, $http) {
 
     $scope.demoDate = dateFormat(new Date(), 'dd mmmm yyyy');
-    $scope.branchId = 1;
+    $scope.branchId = 0;
     $scope.demos = [];
     $scope.currentDemo = null;
 
@@ -432,11 +437,16 @@ function Demo_Follow_Up_Controller($scope, $http) {
             '/demo/export_data_followup',
             {
                 demoDate:$scope.demoDate,
-                branchIds:[$scope.branchId],
+                branchIds:[$scope.branchId]
             }
         ).success(function ($data) {
-                var downloadFrame = '<iframe height="0" width="0" style="display:none" src="' + $data + '"></iframe>';
-                $(downloadFrame).appendTo('body');
+                if ($data != false) {
+                    var downloadFrame = '<iframe height="0" width="0" style="display:none" src="' + $data + '"></iframe>';
+                    $(downloadFrame).appendTo('body');
+                }
+                else {
+                    alert('No Data to export');
+                }
             }).error(function ($data) {
                 //todo: work for error
             });

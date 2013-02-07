@@ -4,12 +4,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>TBD</title>
+    <title>Wisdom Mart - Demo Tracker</title>
 
     <!-- Css -->
     <% HTML::style('css/bootstrap.min.css') %>
     <% HTML::style('css/bootstrap-responsive.min.css') %>
-    <% HTML::style('css/datetimepicker.css') %>
+    <% HTML::style('css/datepicker.css') %>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <% HTML::style('css/app.css') %>
 
@@ -19,7 +19,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js"></script>
 
     <% HTML::script('js/bootstrap.min.js') %>
-    <% HTML::script('js/bootstrap-datetimepicker.js') %>
+    <% HTML::script('js/bootstrap-datepicker.js') %>
     <% HTML::script('js/date-format.js') %>
     <% HTML::script('js/routes.js') %>
     <% HTML::script('js/controllers.js') %>

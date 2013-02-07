@@ -50,6 +50,9 @@ class Demo_Controller extends Base_Controller
             $status,
             true);
 
+        if (empty($demos))
+            return false;
+
         $csvData = AppHelper::ConvertDemosToCSV($demos);
 
         $filePath = AppHelper::generateTempFilePath("csv");
@@ -176,13 +179,11 @@ class Demo_Controller extends Base_Controller
         $branches = $this->userRepo->getBranchesForUser(Auth::user()->id);
         $date = new DateTime();
         $courses = Constants::getCourses();
-        $faculty = Constants::getFaculty();
 
         return View::make('demo.add')->
             with('branches', $branches)->
             with('date', $date)->
-            with('courses', $courses)->
-            with('faculty', $faculty);
+            with('courses', $courses);
     }
 
     /**
@@ -212,8 +213,9 @@ class Demo_Controller extends Base_Controller
         $demoDate = isset($data->demoDate) ? new DateTime($data->demoDate) : null;
         $course = isset($data->course) ? $data->course : null;
         $faculty = isset($data->faculty) ? $data->faculty : null;
+        $counsellor = isset($data->counsellor) ? $data->counsellor : null;
 
-        $demo = $this->demoRepo->createDemo($branchId, Auth::user()->id, $studentName, $mobile, $demoDate, $course, $faculty);
+        $demo = $this->demoRepo->createDemo($branchId, Auth::user()->id, $studentName, $mobile, $demoDate, $course, $faculty, $counsellor);
 
         if ($demo == false)
             return Response::error(Constants::SERVER_ERROR_CODE, array(__('controller.server_error')));
