@@ -1,15 +1,16 @@
-function pageCtrl($scope, $http, $window) {
+function User_Login($scope, $http) {
     $scope.email = "";
     $scope.password = "";
     $scope.showError = false;
 
-    $scope.submit = function () {
+    $scope.loginUser = function (user) {
         $scope.showError = false;
+
         $http.post(
             '/user/post_login',
             {
-                'email':$scope.email,
-                'password':$scope.password
+                'email': user.email,
+                'password': user.password
             }
         ).success(function (data) {
                 if (data.status == true) {

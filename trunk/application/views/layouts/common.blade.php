@@ -24,6 +24,7 @@
     <% HTML::script('js/routes.js') %>
     <% HTML::script('js/controllers.js') %>
     <% HTML::script('js/app.js') %>
+    <% HTML::script('js/muscula.js') %>
 
 </head>
 <body>

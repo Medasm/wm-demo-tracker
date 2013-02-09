@@ -30,34 +30,34 @@ angular.module('LoaderServices', [])
 //Define routes for the application
 angular.module('main-app', ['LoaderServices']).
     config(['$routeProvider', function ($routeProvider) {
-    $routeProvider.
-        when('/', {templateUrl:'/demo/list', controller:Demo_List_Controller}).
-        when('/home/about', {templateUrl:'/home/about'}).
-        when('/home/contact', {templateUrl:'/home/contact'}).
+        $routeProvider.
+            when('/', {templateUrl: '/demo/list', controller: Demo_List_Controller}).
+            when('/home/about', {templateUrl: '/home/about'}).
+            when('/home/contact', {templateUrl: '/home/contact'}).
 
-        // -------------- Login Routes ----------------
-        when('/user/login', {templateUrl:'/user/login'}).
-        when('/user/post_login', {templateUrl:'/user/post_login'}).
-        when('/user/logout', {templateUrl:'/user/logout'}).
+            // -------------- Login Routes ----------------
+            when('/user/login', {templateUrl: '/user/login'}).
+            when('/user/post_login', {templateUrl: '/user/post_login'}).
+            when('/user/logout', {templateUrl: '/user/logout'}).
 
-        //-------------- Demo Route -------------------
-        when('/demo/', {templateUrl:'/demo/list', controller:Demo_List_Controller}).
-        when('/demo/add', {templateUrl:'/demo/add', controller:Demo_Add_Controller}).
-        when('/demo/list', {templateUrl:'/demo/list', controller:Demo_List_Controller}).
-        when('/demo/follow_up', {templateUrl:'/demo/follow_up', controller:Demo_Follow_Up_Controller}).
+            //-------------- Demo Route -------------------
+            when('/demo/', {templateUrl: '/demo/list', controller: Demo_List_Controller}).
+            when('/demo/add', {templateUrl: '/demo/add', controller: Demo_Add_Controller}).
+            when('/demo/list', {templateUrl: '/demo/list', controller: Demo_List_Controller}).
+            when('/demo/follow_up', {templateUrl: '/demo/follow_up', controller: Demo_Follow_Up_Controller}).
 
-        //-------------- Report Route -------------------
-        when('/report/', {templateUrl:'/report/'}).
-        when('/report/enrolled', {templateUrl:'/report/enrolled'}).
-        when('/report/enroll_later', {templateUrl:'/report/enroll_later'}).
-        when('/report/absentees', {templateUrl:'/report/absentees'}).
-        when('/report/not_interested', {templateUrl:'/report/not_interested'}).
+            //-------------- Report Route -------------------
+            when('/report/', {templateUrl: '/report/'}).
+            when('/report/enrolled', {templateUrl: '/report/enrolled'}).
+            when('/report/enroll_later', {templateUrl: '/report/enroll_later'}).
+            when('/report/absentees', {templateUrl: '/report/absentees'}).
+            when('/report/not_interested', {templateUrl: '/report/not_interested'}).
 
-        //--------------- Default URL ------------------
-        otherwise({redirectTo:'/'});
+            //--------------- Default URL ------------------
+            otherwise({redirectTo: '/'});
 
-    //todo: call init components when route change has happened and new view has been loaded in dom
+        //todo: call init components when route change has happened and new view has been loaded in dom
 
-}]);
+    }]);
 
 

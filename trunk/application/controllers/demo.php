@@ -32,7 +32,7 @@ class Demo_Controller extends Base_Controller
     {
         $data = Input::json();
 
-        $demoDate = isset($data->demoDate) ? new DateTime($data->demoDate) : new DateTime();
+        $demoDate = !isset($data->demoDate) || empty($data->demoDate) ?  null : new DateTime($data->demoDate) ;
         $status = isset($data->status) ? $data->status : array();
         $branchIds = array();
 
@@ -65,7 +65,7 @@ class Demo_Controller extends Base_Controller
     {
         $data = Input::json();
 
-        $demoDate = isset($data->demoDate) ? new DateTime($data->demoDate) : new DateTime();
+        $demoDate = !isset($data->demoDate) || empty($data->demoDate) ?  null : new DateTime($data->demoDate) ;
         $branchIds = array();
 
         if (isset($data->branchIds))
@@ -119,7 +119,7 @@ class Demo_Controller extends Base_Controller
     {
         $data = Input::json();
 
-        $demoDate = isset($data->demoDate) ? new DateTime($data->demoDate) : new DateTime();
+        $demoDate = !isset($data->demoDate) || empty($data->demoDate) ?  null : new DateTime($data->demoDate) ;
         $status = isset($data->status) ? $data->status : array();
         $branchIds = array();
 
@@ -156,7 +156,7 @@ class Demo_Controller extends Base_Controller
     {
         $data = Input::json();
 
-        $demoDate = isset($data->demoDate) ? new DateTime($data->demoDate) : new DateTime();
+        $demoDate = !isset($data->demoDate) || empty($data->demoDate) ?  null : new DateTime($data->demoDate) ;
         $branchIds = array();
 
         if (isset($data->branchIds))

@@ -17,9 +17,9 @@ class Constants
         return array(
             "GMAT-Verbal",
             "GMAT-Math",
-            "GRE-Verbal,",
+            "GRE-Verbal",
             "GRE-Math",
-            "SAT Verba,l",
+            "SAT Verbal",
             "SAT-Math",
             "IELTS",
             "TOEFL",

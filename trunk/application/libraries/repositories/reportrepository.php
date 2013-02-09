@@ -8,16 +8,10 @@
  */
 class ReportRepository
 {
-    public function getDemosForDay(DateTime $date, $branchIds, $status, $loadBranch)
+    public function getDemosForDay(DateTime $date = null, $branchIds, $status, $loadBranch)
     {
-        $dateValue = date('Y', $date->getTimestamp()) . "-" . date('m', $date->getTimestamp()) . "-" . date('d', $date->getTimestamp()) . " 00:00:00";
-
-        $fromDate = new DateTime($dateValue);
-        $toDate = new DateTime($dateValue);
-        $toDate->add(new DateInterval('P1D'));
 
         //todo: clean this mess
-
         if (empty($status))
             return array();
 
@@ -46,30 +40,35 @@ class ReportRepository
         }
 
         //todo: use loadbranch for loading branch along with demos
-        return Demo::with(
+        $query = Demo::with(
             array('branch', 'demoStatus'))->
-            where('demoDate', '>=', $fromDate)->
-            where('demoDate', '<', $toDate)->
             where_in('id', $filteredDemoIds)->
-            where_in('branch_id', $branchIds)->
-            get();
+            where_in('branch_id', $branchIds);
+
+        if (!empty($date)) {
+            $dateValue = date('Y', $date->getTimestamp()) . "-" . date('m', $date->getTimestamp()) . "-" . date('d', $date->getTimestamp()) . " 00:00:00";
+
+            $fromDate = new DateTime($dateValue);
+            $toDate = new DateTime($dateValue);
+            $toDate->add(new DateInterval('P1D'));
+
+            $query = $query->
+                where('demoDate', '>=', $fromDate)->
+                where('demoDate', '<', $toDate);
+        }
+
+        return $query->get();
     }
 
-    public function getFollowUps(DateTime $date, $branchIds)
+    public function getFollowUps(DateTime $date = null, $branchIds)
     {
-        $dateValue = date('Y', $date->getTimestamp()) . "-" . date('m', $date->getTimestamp()) . "-" . date('d', $date->getTimestamp()) . " 00:00:00";
-
-        $fromDate = new DateTime($dateValue);
-        $toDate = new DateTime($dateValue);
-        $toDate->add(new DateInterval('P1D'));
-
         //todo: clean this mess
 
         $query = 'select demo_id from (
                     SELECT "demoStatus".demo_id,"demoStatus".status,"demoStatus".created_at
                     FROM "demoStatus"
                     JOIN demos ON "demoStatus".demo_id=demos.id
-                    order by "demoStatus".created_at desc) derived_table group by demo_id, status having status = \'follow_up\'';
+                    order by "demoStatus".created_at desc) derived_table group by demo_id, status having status in (\'follow_up\')';
 
         $results = DB::query($query);
 
@@ -82,7 +81,20 @@ class ReportRepository
             $filteredDemoIds[] = $result->demo_id;
         }
 
-        //todo: use load branch for loading branch along with demos
+
+        if(empty($data))
+            //todo: use load branch for loading branch along with demos
+            return Demo::with(array('branch', 'demoStatus'))->
+                where_in('id', $filteredDemoIds)->
+                where_in('branch_id', $branchIds)->
+                get();
+
+        $dateValue = date('Y', $date->getTimestamp()) . "-" . date('m', $date->getTimestamp()) . "-" . date('d', $date->getTimestamp()) . " 00:00:00";
+
+        $fromDate = new DateTime($dateValue);
+        $toDate = new DateTime($dateValue);
+        $toDate->add(new DateInterval('P1D'));
+
         return Demo::with(
             array('branch', 'demoStatus' => function ($query) use ($fromDate, $toDate) {
                 $query->where('followupDate', '>=', $fromDate)->where('followupDate', '<', $toDate);

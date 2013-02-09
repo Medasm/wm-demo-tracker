@@ -4,8 +4,7 @@
             <label>Demo Date</label>
 
         <div class="input-append date date-input" data-date-format="dd M yyyy">
-            <input class="span2" type="text" id="demoDate" ng-model="demoDate" value="<% $demoDate->format('d F Y') %>"
-                   readonly>
+            <input class="span2" type="text" id="demoDate" ng-model="demoDate">
             <span class="add-on"><i class="icon-calendar"></i></span>
         </div>
         </p
@@ -113,20 +112,26 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         <h4 id="enroll-modal-label">Enrolled</h4>
     </div>
-    <div class="modal-body">
-        <p>
-            <label for="joining-date">Enrollment Date</label>
-            <input id="joining-date" placeholder="enter enrollment date for the student"
-                   type="text" class="span3 date date-input" ng-model="joiningDate">
+    <form name="enrolledForm">
 
-            <label for="enrollment-remarks">Remarks</label>
-            <textarea id="enrollment-remarks" class="span3" rows="5" ng-model="remarks"></textarea>
-        </p>
-    </div>
-    <div class="modal-footer">
-        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-        <button ng-click="setEnrolled()" class="btn btn-primary">Enroll Student</button>
-    </div>
+        <div class="modal-body">
+            <p>
+                <label for="joining-date">Enrollment Date</label>
+                <input id="joining-date" placeholder="enter enrollment date for the student"
+                       type="text" class="span3 date date-input" ng-model="joiningDate">
+
+                <label for="enrollment-remarks">Remarks</label>
+                <textarea id="enrollment-remarks" class="span3" rows="5" ng-required="true"
+                          ng-model="remarks"></textarea>
+            </p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+            <button ng-click="setEnrolled()" ng-disabled="enrolledForm.$invalid" class="btn btn-primary">Enroll
+                Student
+            </button>
+        </div>
+    </form>
 </div>
 
 <!--    Followup Modal-->
@@ -136,20 +141,23 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         <h4 id="followup-modal-label">Enroll Later</h4>
     </div>
-    <div class="modal-body">
-        <p>
-            <label for="followup-date">Followup Date</label>
-            <input id="followup-date" placeholder="enter enrollment date for the student"
-                   type="text" class="span3 date date-input" ng-model="followupDate">
+    <form name="followupForm" novalidate>
 
-            <label for="followup-remarks">Remarks</label>
-            <textarea id="followup-remarks" class="span3" rows="5" ng-model="remarks"></textarea>
-        </p>
-    </div>
-    <div class="modal-footer">
-        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-        <button ng-click="setEnrollLater()" class="btn btn-primary">Mark Followup</button>
-    </div>
+        <div class="modal-body">
+            <p>
+                <label for="followup-date">Followup Date</label>
+                <input id="followup-date" placeholder="enter enrollment date for the student"
+                       type="text" class="span3 date date-input" ng-model="followupDate">
+
+                <label for="followup-remarks">Remarks</label>
+                <textarea id="followup-remarks" ng-required="true" class="span3" rows="5" ng-model="remarks"></textarea>
+            </p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+            <button ng-click="setEnrollLater()" ng-disabled="followupForm.$invalid" class="btn btn-primary">Mark Followup</button>
+        </div>
+    </form>
 </div>
 
 <!--    not Interested Modal-->

@@ -4,8 +4,7 @@
             <label>Demo Date</label>
 
         <div class="input-append date date-input" data-date-format="dd M yyyy">
-            <input size="16" type="text" id="demoDate" ng-model="demoDate" value="<% $demoDate->format('d F Y') %>"
-                   readonly>
+            <input size="16" type="text" id="demoDate" ng-model="demoDate">
             <span class="add-on"><i class="icon-calendar"></i></span>
         </div>
         </p

@@ -46,14 +46,28 @@ class DemoControllerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(200, $response->status());
     }
 
-
     public function testListDemos()
     {
 
-        $this->markTestSkipped("Skipping Demo Controller");
-        $response = Controller::call('demo@list');
+//        $this->markTestSkipped("Skipping Demo Controller");
+
+        $data = array(
+            'branchIds' => array(1),
+            'status' => array('created','enrolled','absent','not_interested'),
+        );
+
+        //forced logged in for a user to get pass through authentication
+        Auth::login(1);
+
+        Input::$json = (object)$data;
+
+        Request::setMethod('POST');
+
+        $response = Controller::call('demo@post_list');
+
         $this->assertNotNull($response);
         $this->assertEquals(200, $response->status());
+        var_dump(count($response->content));
     }
 
     public function testPostListDemo()
@@ -80,9 +94,9 @@ class DemoControllerTest extends PHPUnit_Framework_TestCase
 
     public function testExportData()
     {
+        $this->markTestSkipped("Skipping Demo Controller");
         $data = array(
             'demoId' => 2,
-//            'branchIds' => "1",
             'status' => array('created'),
             'demoDate' => '16 Jan 2013'
         );
@@ -102,7 +116,6 @@ class DemoControllerTest extends PHPUnit_Framework_TestCase
         $response = Controller::call('demo@export_data', $data);
         $this->assertNotNull($response);
         $this->assertEquals(200, $response->status());
-        var_dump($response->content);
     }
 
     public function testCreateFollowup()
