@@ -67,19 +67,18 @@
                 <td>{{ demo.branch.name}}</td>
                 <td>{{ getStatus(demo) }}</td>
                 <td>
-                    <div class="btn-group pull-right">
-                        <a ng-show="getStatus(demo) != 'Enrolled'" class="btn dropdown-toggle" data-toggle="dropdown"
-                           href="#">
-                            Update Status
+                    <div class="btn-group">
+                        <a class="btn" href="#/demo/edit/{{demo.id}}">Edit</a>
+                        <button class="btn dropdown-toggle" data-toggle="dropdown">
                             <span class="caret"></span>
-                        </a>
+                        </button>
                         <ul class="dropdown-menu">
-                            <li><a href="#/demo/edit/{{demo.id}}">Edit</a></li>
                             <li><a ng-click="showEnrollModal(demo)">Enrolled [Paid Only]</a></li>
                             <li><a ng-click="showFollowupModal(demo)">Enroll Later</a></li>
                             <li><a ng-click="setAbsent(demo)">Absent</a></li>
                             <li class="divider"></li>
                             <li><a ng-click="showNotInterestedModel(demo)">Not Interested</a></li>
+
                         </ul>
                     </div>
                 </td>
@@ -186,3 +185,4 @@
 <script type="text/javascript">
     initComponents();
 </script>
+

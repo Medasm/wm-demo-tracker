@@ -121,11 +121,9 @@ class Demo_Controller extends Base_Controller
 
         $demoDate = !isset($data->demoDate) || empty($data->demoDate) ? null : new DateTime($data->demoDate);
         $status = isset($data->status) ? $data->status : array();
-        $branchIds = array();
+        $branchIds = isset($data->branchIds) ? $data->branchIds : array();
 
-        if (isset($data->branchIds))
-            $branchIds = $data->branchIds;
-        else {
+        if (empty($branchIds) || (count($branchIds) > 0 && $branchIds[0] == 0)) {
             $branches = $this->userRepo->getBranchesForUser(Auth::user()->id);
             foreach ($branches as $branch) {
                 $branchIds[] = $branch->id;

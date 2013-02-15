@@ -488,11 +488,17 @@ function Demo_Edit_Controller($scope, $http, $routeParams) {
                 $scope.faculty = $data.faculty;
                 $scope.branchId = $data.branch_id;
                 $scope.counsellor = $data.counsellor;
-                $scope.demoDate = $data.demodate;
+                $scope.demoDate = $scope.getFormattedDate($data.demodate);
 
             }).error(function (data) {
                 //todo: log this
             });
+    }
+
+
+    //helper function for getting formatted date
+    $scope.getFormattedDate = function ($date) {
+        return dateFormat($date, 'dd mmm yyyy');
     }
 
     $scope.editDemo();
