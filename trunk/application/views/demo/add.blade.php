@@ -11,8 +11,8 @@
                    class="span4">
         </div>
         <div class="span4"><label for="name">Mobile</label>
-            <input name="mobile" type="text" ng-model="mobile" ng-required="true" ng-minLength="8" ng-maxLength="10" id="mobile" class="span4">
-            <span ng-show="form.mobile.$invalid && !form.mobile.$pristine" class="text-error">The mobile number should contain between 8 - 10 digits </span>
+            <input name="mobile" type="text" ng-model="mobile" ng-required="true" ng-minLength="8" id="mobile" class="span4">
+            <span ng-show="form.mobile.$invalid && !form.mobile.$pristine" class="text-error">The mobile number should be at least 8 digits </span>
         </div>
         <div class="span4">
             <label for="branch">Branch</label>

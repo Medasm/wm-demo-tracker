@@ -289,7 +289,10 @@ function Demo_Follow_Up_Controller($scope, $http) {
                 branchIds: [$scope.branchId]
             }
         ).success(function ($data) {
-                $scope.demos = $data;
+                if (Array.isArray($data))
+                    $scope.demos = $data;
+                else
+                    $scope.demos = [];
             }).error(function ($data) {
                 //todo: work for error
             });
