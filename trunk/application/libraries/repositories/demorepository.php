@@ -88,4 +88,34 @@ class DemoRepository
         }
         return $demoStatus;
     }
+
+    public function getDemo($demoId)
+    {
+        $demo = Demo::find($demoId);
+
+        if (empty($demo))
+            return false;
+
+        return $demo;
+
+    }
+
+    public function updateDemo($demoId, $branchId,
+                               $studentName,
+                               $mobile,
+                               DateTime $demoDate,
+                               $course,
+                               $faculty,
+                               $counsellor)
+    {
+        $demo = Demo::find($demoId);
+        if (empty($demo))
+            return false;
+
+        $attributes=array('branch_id' =>$branchId, 'name'=>$studentName,'mobile'=>$mobile,'program'=>$course,'faculty'=>$faculty,'counsellor'=>$counsellor,'demoDate'=>$demoDate);
+        Demo::update($demoId,$attributes);
+
+        return $demo;
+
+    }
 }

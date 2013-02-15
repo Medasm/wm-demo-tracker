@@ -74,6 +74,7 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
+                            <li><a href="#/demo/edit/{{demo.id}}">Edit</a></li>
                             <li><a ng-click="showEnrollModal(demo)">Enrolled [Paid Only]</a></li>
                             <li><a ng-click="showFollowupModal(demo)">Enroll Later</a></li>
                             <li><a ng-click="setAbsent(demo)">Absent</a></li>
@@ -155,7 +156,9 @@
         </div>
         <div class="modal-footer">
             <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-            <button ng-click="setEnrollLater()" ng-disabled="followupForm.$invalid" class="btn btn-primary">Mark Followup</button>
+            <button ng-click="setEnrollLater()" ng-disabled="followupForm.$invalid" class="btn btn-primary">Mark
+                Followup
+            </button>
         </div>
     </form>
 </div>

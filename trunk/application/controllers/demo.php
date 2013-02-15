@@ -32,7 +32,7 @@ class Demo_Controller extends Base_Controller
     {
         $data = Input::json();
 
-        $demoDate = !isset($data->demoDate) || empty($data->demoDate) ?  null : new DateTime($data->demoDate) ;
+        $demoDate = !isset($data->demoDate) || empty($data->demoDate) ? null : new DateTime($data->demoDate);
         $status = isset($data->status) ? $data->status : array();
         $branchIds = array();
 
@@ -65,7 +65,7 @@ class Demo_Controller extends Base_Controller
     {
         $data = Input::json();
 
-        $demoDate = !isset($data->demoDate) || empty($data->demoDate) ?  null : new DateTime($data->demoDate) ;
+        $demoDate = !isset($data->demoDate) || empty($data->demoDate) ? null : new DateTime($data->demoDate);
         $branchIds = array();
 
         if (isset($data->branchIds))
@@ -119,7 +119,7 @@ class Demo_Controller extends Base_Controller
     {
         $data = Input::json();
 
-        $demoDate = !isset($data->demoDate) || empty($data->demoDate) ?  null : new DateTime($data->demoDate) ;
+        $demoDate = !isset($data->demoDate) || empty($data->demoDate) ? null : new DateTime($data->demoDate);
         $status = isset($data->status) ? $data->status : array();
         $branchIds = array();
 
@@ -156,7 +156,7 @@ class Demo_Controller extends Base_Controller
     {
         $data = Input::json();
 
-        $demoDate = !isset($data->demoDate) || empty($data->demoDate) ?  null : new DateTime($data->demoDate) ;
+        $demoDate = !isset($data->demoDate) || empty($data->demoDate) ? null : new DateTime($data->demoDate);
         $branchIds = array();
 
         if (isset($data->branchIds))
@@ -303,6 +303,53 @@ class Demo_Controller extends Base_Controller
             return Response::make(__('controller.server_error'), Constants::SERVER_ERROR_CODE);
 
         return Response::eloquent($demoStatus);
+    }
+
+    public function action_edit()
+    {
+
+        $branches = $this->userRepo->getBranchesForUser(Auth::user()->id);
+        $date = new DateTime();
+        $courses = Constants::getCourses();
+        return View::make('demo.edit')->with('branches', $branches)
+            ->with('date', $date)
+            ->with('courses', $courses);
+    }
+
+    public function action_post_edit()
+    {
+        $data = Input::json();
+        if (empty($data->id))
+            return Response::make(__('controller.missing_param'), Constants::CLIENT_ERROR_CODE);
+
+        $demo = $this->demoRepo->getDemo($data->id);
+        return Response::eloquent($demo);
+    }
+
+    public function action_post_saveEditDemo()
+    {
+        $data = Input::json();
+        if (empty($data))
+            return Response::make(__('controller.missing_param'), Constants::CLIENT_ERROR_CODE);
+
+        //todo: server side validation for required and content validation
+
+        $branchId = isset($data->branchId) ? $data->branchId : null;
+        $studentName = isset($data->studentName) ? $data->studentName : null;
+        $mobile = isset($data->mobile) ? $data->mobile : null;
+        $demoDate = isset($data->demoDate) ? new DateTime($data->demoDate) : null;
+        $course = isset($data->course) ? $data->course : null;
+        $faculty = isset($data->faculty) ? $data->faculty : null;
+        $counsellor = isset($data->counsellor) ? $data->counsellor : null;
+        $demoId = isset($data->demoId) ? $data->demoId : null;
+
+        $demo = $this->demoRepo->updateDemo($demoId, $branchId, $studentName, $mobile, $demoDate, $course, $faculty, $counsellor);
+
+        if ($demo == false)
+            return Response::error(Constants::SERVER_ERROR_CODE, array(__('controller.server_error')));
+
+        return Response::eloquent($demo);
+
     }
 
 }

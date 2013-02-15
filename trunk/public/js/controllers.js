@@ -15,13 +15,13 @@ function Demo_Add_Controller($scope, $http) {
         $http.post(
             '/demo/post_add',
             {
-                studentName: $scope.studentName,
-                mobile: $scope.mobile,
-                course: $scope.course,
-                faculty: $scope.faculty,
-                branchId: $scope.branchId,
-                demoDate: $scope.demoDate,
-                counsellor: $scope.counsellor
+                studentName:$scope.studentName,
+                mobile:$scope.mobile,
+                course:$scope.course,
+                faculty:$scope.faculty,
+                branchId:$scope.branchId,
+                demoDate:$scope.demoDate,
+                counsellor:$scope.counsellor
             }
         ).success(function (data) {
                 //if demo is created, redirect to demo list
@@ -82,9 +82,9 @@ function Demo_List_Controller($scope, $http) {
         $http.post(
             '/demo/post_list',
             {
-                demoDate: $scope.demoDate,
-                branchIds: [$scope.branchId],
-                status: $scope.getStatusArray()
+                demoDate:$scope.demoDate,
+                branchIds:[$scope.branchId],
+                status:$scope.getStatusArray()
             }
         ).success(function ($data) {
                 if (Array.isArray($data))
@@ -167,9 +167,9 @@ function Demo_List_Controller($scope, $http) {
         $http.post(
             '/demo/mark_enrolled',
             {
-                demoId: $scope.currentDemo.id,
-                joiningDate: $scope.joiningDate,
-                remarks: $scope.remarks
+                demoId:$scope.currentDemo.id,
+                joiningDate:$scope.joiningDate,
+                remarks:$scope.remarks
             }
         ).success(function ($demoStatus) {
                 $scope.currentDemo.demoStatus.unshift($demoStatus);
@@ -193,9 +193,9 @@ function Demo_List_Controller($scope, $http) {
         $http.post(
             '/demo/mark_followup',
             {
-                demoId: $scope.currentDemo.id,
-                followupDate: $scope.followupDate,
-                remarks: $scope.remarks
+                demoId:$scope.currentDemo.id,
+                followupDate:$scope.followupDate,
+                remarks:$scope.remarks
             }
         ).success(function ($demoStatus) {
                 $scope.currentDemo.demoStatus.unshift($demoStatus);
@@ -208,7 +208,7 @@ function Demo_List_Controller($scope, $http) {
     }
 
     $scope.setAbsent = function ($demo) {
-        $http.post('demo/mark_absent', {demoId: $demo.id}).success(function ($newDemoStatus) {
+        $http.post('demo/mark_absent', {demoId:$demo.id}).success(function ($newDemoStatus) {
             $demo.demoStatus.unshift($newDemoStatus);
         });
     }
@@ -222,8 +222,8 @@ function Demo_List_Controller($scope, $http) {
         $http.post(
             '/demo/mark_not_interested',
             {
-                demoId: $scope.currentDemo.id,
-                remarks: $scope.remarks
+                demoId:$scope.currentDemo.id,
+                remarks:$scope.remarks
             }
         ).success(function ($demoStatus) {
                 $scope.currentDemo.demoStatus.unshift($demoStatus);
@@ -240,9 +240,9 @@ function Demo_List_Controller($scope, $http) {
         $http.post(
             '/demo/export_data',
             {
-                demoDate: $scope.demoDate,
-                branchIds: [$scope.branchId],
-                status: $scope.getStatusArray()
+                demoDate:$scope.demoDate,
+                branchIds:[$scope.branchId],
+                status:$scope.getStatusArray()
             }
         ).success(function ($data) {
                 if ($data != false) {
@@ -285,8 +285,8 @@ function Demo_Follow_Up_Controller($scope, $http) {
         $http.post(
             '/demo/post_follow_up',
             {
-                demoDate: $scope.demoDate,
-                branchIds: [$scope.branchId]
+                demoDate:$scope.demoDate,
+                branchIds:[$scope.branchId]
             }
         ).success(function ($data) {
                 $scope.demos = $data;
@@ -337,6 +337,7 @@ function Demo_Follow_Up_Controller($scope, $http) {
 
     //helper function for getting formatted date
     $scope.getFormattedDate = function ($date) {
+        alert($date);
         return dateFormat($date, 'dd mmm yyyy');
     }
 
@@ -366,9 +367,9 @@ function Demo_Follow_Up_Controller($scope, $http) {
         $http.post(
             '/demo/mark_enrolled',
             {
-                demoId: $scope.currentDemo.id,
-                joiningDate: $scope.joiningDate,
-                remarks: $scope.remarks
+                demoId:$scope.currentDemo.id,
+                joiningDate:$scope.joiningDate,
+                remarks:$scope.remarks
             }
         ).success(function ($demoStatus) {
                 $scope.currentDemo.demoStatus.unshift($demoStatus);
@@ -392,9 +393,9 @@ function Demo_Follow_Up_Controller($scope, $http) {
         $http.post(
             '/demo/mark_followup',
             {
-                demoId: $scope.currentDemo.id,
-                followupDate: $scope.followupDate,
-                remarks: $scope.remarks
+                demoId:$scope.currentDemo.id,
+                followupDate:$scope.followupDate,
+                remarks:$scope.remarks
             }
         ).success(function ($demoStatus) {
                 $scope.currentDemo.demoStatus.unshift($demoStatus);
@@ -407,7 +408,7 @@ function Demo_Follow_Up_Controller($scope, $http) {
     }
 
     $scope.setAbsent = function ($demo) {
-        $http.post('demo/mark_absent', {demoId: $demo.id}).success(function ($newDemoStatus) {
+        $http.post('demo/mark_absent', {demoId:$demo.id}).success(function ($newDemoStatus) {
             $demo.demoStatus.unshift($newDemoStatus);
         });
     }
@@ -421,8 +422,8 @@ function Demo_Follow_Up_Controller($scope, $http) {
         $http.post(
             '/demo/mark_not_interested',
             {
-                demoId: $scope.currentDemo.id,
-                remarks: $scope.remarks
+                demoId:$scope.currentDemo.id,
+                remarks:$scope.remarks
             }
         ).success(function ($demoStatus) {
                 $scope.currentDemo.demoStatus.unshift($demoStatus);
@@ -439,8 +440,8 @@ function Demo_Follow_Up_Controller($scope, $http) {
         $http.post(
             '/demo/export_data_followup',
             {
-                demoDate: $scope.demoDate,
-                branchIds: [$scope.branchId]
+                demoDate:$scope.demoDate,
+                branchIds:[$scope.branchId]
             }
         ).success(function ($data) {
                 if ($data != false) {
@@ -457,4 +458,66 @@ function Demo_Follow_Up_Controller($scope, $http) {
 
     //get initial data for default date and branch
     $scope.getDemos();
+}
+
+
+function Demo_Edit_Controller($scope, $http, $routeParams) {
+    $scope.studentName = '';
+    $scope.mobile = '';
+    $scope.course = '';
+    $scope.faculty = '';
+    $scope.branchId = '';
+    $scope.counsellor = '';
+    $scope.demoDate;
+    $scope.id = $routeParams.id;
+
+    $scope.editDemo = function () {
+        $scope.demoDate = $('#demoDate').val();         //bad hack because of angular update issue
+
+        //add demo as per current info
+        $http.post(
+            '/demo/post_edit',
+            {
+                id:$scope.id
+            }
+        ).success(function ($data) {
+                //if demo is created, redirect to demo list
+                $scope.studentName = $data.name;
+                $scope.mobile = $data.mobile;
+                $scope.course = $data.program;
+                $scope.faculty = $data.faculty;
+                $scope.branchId = $data.branch_id;
+                $scope.counsellor = $data.counsellor;
+                $scope.demoDate = $data.demodate;
+
+            }).error(function (data) {
+                //todo: log this
+            });
+    }
+
+    $scope.editDemo();
+
+    $scope.saveDemo = function () {
+        $scope.demoDate = $('#demoDate').val();         //bad hack because of angular update issue
+
+        //add demo as per current info
+        $http.post(
+            '/demo/post_saveEditDemo',
+            {
+                demoId:$scope.id,
+                studentName:$scope.studentName,
+                mobile:$scope.mobile,
+                course:$scope.course,
+                faculty:$scope.faculty,
+                branchId:$scope.branchId,
+                demoDate:$scope.demoDate,
+                counsellor:$scope.counsellor
+            }
+        ).success(function ($data) {
+                //if demo is created, redirect to demo list
+                window.location.href = "/#/demo/list/";
+            }).error(function (data) {
+                //todo: log this
+            });
+    }
 }

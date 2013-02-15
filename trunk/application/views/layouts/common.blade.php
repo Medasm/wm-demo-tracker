@@ -22,7 +22,7 @@
     <% HTML::script('js/bootstrap-datepicker.js') %>
     <% HTML::script('js/date-format.js') %>
     <% HTML::script('js/routes.js?v=1') %>
-    <% HTML::script('js/controllers.js?v=1') %>
+    <% HTML::script('js/controllers.js?v=1.8') %>
     <% HTML::script('js/app.js?v=1') %>
     <% HTML::script('js/muscula.js') %>
 

@@ -42,7 +42,7 @@ return array(
 	|
 	*/
 
-	'default' => 'mysql',
+	'default' => 'pgsql',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -70,9 +70,9 @@ return array(
 		'mysql' => array(
 			'driver'   => 'mysql',
 			'host'     => 'localhost',
-			'database' => 'wm-demo',
+			'database' => 'wmdemo',
 			'username' => 'root',
-			'password' => 'asdf',
+			'password' => '',
 			'charset'  => 'utf8',
 			'prefix'   => '',
 		),
@@ -80,9 +80,9 @@ return array(
 		'pgsql' => array(
 			'driver'   => 'pgsql',
 			'host'     => '127.0.0.1',
-			'database' => 'database',
-			'username' => 'root',
-			'password' => '',
+			'database' => 'wmdemo',
+			'username' => 'postgres',
+			'password' => 'asdf',
 			'charset'  => 'utf8',
 			'prefix'   => '',
 			'schema'   => 'public',
