@@ -15,18 +15,22 @@ class ReportRepository
         if (empty($status))
             return array();
 
-        $statusString = "(";
+        $statusString = "";
         foreach ($status as $st) {
             $statusString = $statusString . "'" . $st . "',";
         }
 
-        $statusString = rtrim($statusString, ",") . ")";
+        $statusString = rtrim($statusString, ",");
 
-        $query = 'select demo_id from (
-                    SELECT "demoStatus".demo_id,"demoStatus".status,"demoStatus".created_at
-                    FROM "demoStatus"
-                    JOIN "demos" ON "demoStatus".demo_id=demos.id
-                    order by "demoStatus".created_at desc) derived_table group by demo_id, status having status in ' . $statusString;
+        $query = "
+        SELECT demo_id from (
+            SELECT
+            ds.demo_id,
+            ds.status,
+            ROW_NUMBER() OVER (PARTITION BY ds.demo_id ORDER BY ds.created_at DESC) as rownum
+            from \"demoStatus\" ds) as filteredTable where rownum = 1 AND status in ($statusString)
+        ";
+
 
         $results = DB::query($query);
 
@@ -64,11 +68,14 @@ class ReportRepository
     {
         //todo: clean this mess
 
-        $query = 'select demo_id from (
-                    SELECT "demoStatus".demo_id,"demoStatus".status,"demoStatus".created_at
-                    FROM "demoStatus"
-                    JOIN demos ON "demoStatus".demo_id=demos.id
-                    order by "demoStatus".created_at desc) derived_table group by demo_id, status having status in (\'follow_up\')';
+        $query = "
+        SELECT demo_id from (
+            SELECT
+            ds.demo_id,
+            ds.status,
+            ROW_NUMBER() OVER (PARTITION BY ds.demo_id ORDER BY ds.created_at DESC) as rownum
+            from \"demoStatus\" ds) as filteredTable where rownum = 1 AND status in ('follow_up')
+        ";
 
         $results = DB::query($query);
 
@@ -81,26 +88,47 @@ class ReportRepository
             $filteredDemoIds[] = $result->demo_id;
         }
 
+        $query;
 
-        if(empty($data))
+        if (empty($date)) {
             //todo: use load branch for loading branch along with demos
-            return Demo::with(array('branch', 'demoStatus'))->
+            $query = Demo::with(array('branch', 'demoStatus'))->
                 where_in('id', $filteredDemoIds)->
-                where_in('branch_id', $branchIds)->
-                get();
+                where_in('branch_id', $branchIds);
+        } else {
 
-        $dateValue = date('Y', $date->getTimestamp()) . "-" . date('m', $date->getTimestamp()) . "-" . date('d', $date->getTimestamp()) . " 00:00:00";
+            $dateValue = date('Y', $date->getTimestamp()) . "-" . date('m', $date->getTimestamp()) . "-" . date('d', $date->getTimestamp()) . " 00:00:00";
 
-        $fromDate = new DateTime($dateValue);
-        $toDate = new DateTime($dateValue);
-        $toDate->add(new DateInterval('P1D'));
+            $fromDate = new DateTime($dateValue);
+            $toDate = new DateTime($dateValue);
+            $toDate->add(new DateInterval('P1D'));
 
-        return Demo::with(
-            array('branch', 'demoStatus' => function ($query) use ($fromDate, $toDate) {
-                $query->where('followupDate', '>=', $fromDate)->where('followupDate', '<', $toDate);
-            }))->
-            where_in('id', $filteredDemoIds)->
-            where_in('branch_id', $branchIds)->
-            get();
+            $branchIdsString = implode(",", $branchIds);
+            $demoIdsString = implode(",", $filteredDemoIds);
+
+            $query = "
+                SELECT d.id FROM \"demos\" d
+                    JOIN \"demoStatus\" ds on d.id = ds.demo_id
+                    where
+                    ds.\"followupDate\" >= ? AND ds.\"followupDate\" < ? AND
+                    d.branch_id in ($branchIdsString) AND
+                    d.id in ($demoIdsString)";
+
+            $results = DB::query($query, array($fromDate, $toDate));
+
+            if (empty($results))
+                return array();
+
+            $demoIds = array();
+
+            foreach ($results as $result) {
+                $demoIds[] = $result->id;
+            }
+
+            $query = Demo::with(array('branch', 'demoStatus'))->
+                where_in('id', $demoIds);
+        }
+
+        return $query->get();
     }
 }
