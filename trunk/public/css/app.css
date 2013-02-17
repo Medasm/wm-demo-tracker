@@ -27,3 +27,8 @@ body, input, button, select, textarea, .btn, label {
     width: 100%;
 }
 
+
+.pop-over{
+    text-decoration: underline;
+    cursor: pointer;
+}

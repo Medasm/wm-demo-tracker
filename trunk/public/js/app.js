@@ -6,10 +6,11 @@ function initComponents() {
         //initialize datepicker component
 
         $(".datetime-input,.date-input").datepicker({
-            format:"dd MM yyyy",
-            autoclose:true,
-            todayBtn:true,
-            todayHighlight:true
+            format: "dd MM yyyy",
+            autoclose: true,
+            todayBtn: true,
+            todayHighlight: true
         });
+
     });
 }

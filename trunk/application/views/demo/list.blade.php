@@ -52,6 +52,7 @@
                 <th>Counsellor</th>
                 <th>Branch</th>
                 <th>Status</th>
+                <th>Remarks</th>
                 <th>&nbsp;</th>
             </tr>
             </thead>
@@ -65,7 +66,8 @@
                 <td>{{ demo.faculty}}</td>
                 <td>{{ demo.counsellor}}</td>
                 <td>{{ demo.branch.name}}</td>
-                <td>{{ getStatus(demo) }}</td>
+                <td>{{ getStatus(demo) }} </td>
+                <td style="max-width: 100px;">{{ getStatusText(demo) }} </td>
                 <td>
                     <div class="btn-group">
                         <a class="btn" href="#/demo/edit/{{demo.id}}">Edit</a>
