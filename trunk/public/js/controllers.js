@@ -221,6 +221,12 @@ function Demo_List_Controller($scope, $http) {
         });
     }
 
+    $scope.setNew = function ($demo) {
+        $http.post('demo/mark_new', {demoId: $demo.id}).success(function ($newDemoStatus) {
+            $demo.demoStatus.unshift($newDemoStatus);
+        });
+    }
+
     $scope.setNotInterested = function ($demo) {
         if ($scope.currentDemo == null) {
             alert('try again');
@@ -420,6 +426,13 @@ function Demo_Follow_Up_Controller($scope, $http) {
                 //todo: log this
             });
     }
+
+    $scope.setNew = function ($demo) {
+        $http.post('demo/mark_new', {demoId: $demo.id}).success(function ($newDemoStatus) {
+            $demo.demoStatus.unshift($newDemoStatus);
+        });
+    }
+
 
     $scope.setAbsent = function ($demo) {
         $http.post('demo/mark_absent', {demoId: $demo.id}).success(function ($newDemoStatus) {

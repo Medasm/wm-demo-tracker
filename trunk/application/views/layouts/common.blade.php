@@ -60,7 +60,7 @@
 </div>
 
 <div id="ajax-loader">
-    Loading <% HTML::image('img/loader.gif'); %>
+    Loading ...
 </div>
 
 </body>

@@ -26,13 +26,12 @@
         <table class="table table-striped table-hover table-condensed">
             <thead>
             <tr>
+                <th>Demo Date</th>
                 <th>Name</th>
                 <th>Mobile</th>
-                <th>Demo Date</th>
                 <th>Course</th>
                 <th>Faculty</th>
                 <th>Counsellor</th>
-                <th>Branch</th>
                 <th>Status</th>
                 <th>Remarks</th>
                 <th>&nbsp;</th>
@@ -41,13 +40,12 @@
             <tbody ng-show="demos.length>0">
 
             <tr ng-repeat="demo in demos" ng-class="getStatusCss(demo)">
+                <td>{{ getFormattedDate(demo.demodate) }}</td>
                 <td>{{ demo.name }}</td>
                 <td>{{ demo.mobile }}</td>
-                <td>{{ getFormattedDate(demo.demodate) }}</td>
                 <td>{{ demo.program}}</td>
                 <td>{{ demo.faculty}}</td>
                 <td>{{ demo.counsellor}}</td>
-                <td>{{ demo.branch.name}}</td>
                 <td>{{ getStatus(demo) }}</td>
                 <td style="max-width: 100px;">{{ getStatusText(demo) }}</td>
                 <td>
@@ -57,6 +55,7 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
+                            <li><a ng-click="setNew(demo)">New</a></li>
                             <li><a ng-click="showEnrollModal(demo)">Enrolled [Paid Only]</a></li>
                             <li><a ng-click="showFollowupModal(demo)">Enroll Later</a></li>
                             <li><a ng-click="setAbsent(demo)">Absent</a></li>

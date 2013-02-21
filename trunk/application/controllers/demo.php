@@ -255,6 +255,25 @@ class Demo_Controller extends Base_Controller
         return Response::eloquent($demo);
     }
 
+    public function action_mark_new()
+    {
+        $data = Input::json();
+
+        if (empty($data))
+            return Response::make(__('controller.missing_param'), Constants::CLIENT_ERROR_CODE);
+
+        //todo: server side validation for required and content validation
+
+        $demoId = isset($data->demoId) ? $data->demoId : null;
+
+        $demo = $this->demoRepo->markDemoNew($demoId);
+
+        if ($demo == false)
+            return Response::make(__('controller.server_error'), Constants::SERVER_ERROR_CODE);
+
+        return Response::eloquent($demo);
+    }
+
     public function action_mark_followup()
     {
         $data = Input::json();

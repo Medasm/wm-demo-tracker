@@ -54,6 +54,11 @@ class DemoRepository
         return $this->updateStatus($demoId, DemoStatus::ABSENT);
     }
 
+    public function markDemoNew($demoId)
+    {
+        return $this->updateStatus($demoId, DemoStatus::CREATED);
+    }
+
     public function markDemoJoin($demoId, $joiningDate, $remarks)
     {
         return $this->updateStatus($demoId, DemoStatus::ENROLLED, null, $joiningDate, $remarks);
@@ -112,8 +117,8 @@ class DemoRepository
         if (empty($demo))
             return false;
 
-        $attributes=array('branch_id' =>$branchId, 'name'=>$studentName,'mobile'=>$mobile,'program'=>$course,'faculty'=>$faculty,'counsellor'=>$counsellor,'demoDate'=>$demoDate);
-        Demo::update($demoId,$attributes);
+        $attributes = array('branch_id' => $branchId, 'name' => $studentName, 'mobile' => $mobile, 'program' => $course, 'faculty' => $faculty, 'counsellor' => $counsellor, 'demoDate' => $demoDate);
+        Demo::update($demoId, $attributes);
 
         return $demo;
 
