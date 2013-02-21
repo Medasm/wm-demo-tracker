@@ -10,7 +10,6 @@ class ReportRepository
 {
     public function getDemosForDay(DateTime $date = null, $branchIds, $status, $loadBranch)
     {
-
         //todo: clean this mess
         if (empty($status))
             return array();
@@ -61,7 +60,7 @@ class ReportRepository
                 where('demoDate', '<', $toDate);
         }
 
-        return $query->get();
+        return $query->order_by('demoDate', 'desc')->get();
     }
 
     public function getFollowUps(DateTime $date = null, $branchIds)
@@ -125,10 +124,10 @@ class ReportRepository
                 $demoIds[] = $result->id;
             }
 
-            $query = Demo::with(array('branch', 'demoStatus'))->
-                where_in('id', $demoIds);
+            $query = Demo::with(array('branch', 'demoStatus'))
+                ->where_in('id', $demoIds);
         }
 
-        return $query->get();
+        return $query->order_by('demoDate','desc')->get();
     }
 }

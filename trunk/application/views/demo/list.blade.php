@@ -66,10 +66,10 @@
                 <td>{{ demo.faculty}}</td>
                 <td>{{ demo.counsellor}}</td>
                 <td>{{ demo.branch.name}}</td>
-                <td>{{ getStatus(demo) }} </td>
-                <td style="max-width: 100px;">{{ getStatusText(demo) }} </td>
+                <td>{{ getStatus(demo) }}</td>
+                <td style="max-width: 100px;">{{ getStatusText(demo) }}</td>
                 <td>
-                    <div class="btn-group">
+                    <div ng-show="showControls(demo)" class="btn-group">
                         <a class="btn" href="#/demo/edit/{{demo.id}}">Edit</a>
                         <button class="btn dropdown-toggle" data-toggle="dropdown">
                             <span class="caret"></span>

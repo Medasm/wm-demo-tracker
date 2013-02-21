@@ -136,6 +136,10 @@ function Demo_List_Controller($scope, $http) {
         }
     }
 
+    $scope.showControls = function (demo) {
+        return demo.demoStatus[0].status != 'enrolled';
+    }
+
     $scope.getStatusText = function (demo) {
         return demo.demoStatus.length > 0 ? demo.demoStatus[0].remarks : "No Remarks Available";
     }

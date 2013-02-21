@@ -2,7 +2,7 @@ body {
     padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
 }
 
-body, input, button, select, textarea, .btn, label {
+body, input, button, select, textarea, .btn, label, .btn-group > .btn, .btn-group > .dropdown-menu, .btn-group > .popover {
     font-family: 'Open Sans', sans-serif;
     font-size: 12px !important;
 }
@@ -27,8 +27,7 @@ body, input, button, select, textarea, .btn, label {
     width: 100%;
 }
 
-
-.pop-over{
+.pop-over {
     text-decoration: underline;
     cursor: pointer;
 }
